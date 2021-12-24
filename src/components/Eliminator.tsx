@@ -20,7 +20,10 @@ export function Eliminator(props: EliminatorProps) {
     setMap(props.animalMap);
   }
   const [elimPlayer, setPlayer] = useState<DiceValue>({ animal: 'Good', name: 'Luck' });
-  const roll = () => {
+  const [showStartButton, setShowStartButton] = useState<Boolean>(true);
+  const [showSingleEliminationButton, setShowSingleEliminationButton] = useState<Boolean>(false);
+  
+  const eliminate = () => {
     if (animalsToPlayersMap.length < 1) {
       return;
     }
@@ -28,20 +31,45 @@ export function Eliminator(props: EliminatorProps) {
     const randElement = animalsToPlayersMap[Math.floor(Math.random() * animalsToPlayersMap.length)];
     animalsToPlayersMap = animalsToPlayersMap.filter(e => e !== randElement);
     setPlayer(randElement);
-    console.log(animalsToPlayersMap);
-    
-    setTimeout(() => roll(), 1000);
   };
+
+  const eliminatePlayers = (numberPlayers: number) => {
+    for (var i = 0; i < numberPlayers; i++) {
+      if (i === numberPlayers - 1) {
+        setTimeout(() => {eliminate(); setShowSingleEliminationButton(true);}, 1000 * i);
+      }
+      else {
+        setTimeout(() => eliminate(), 1000 * i);
+      }
+    }
+  }
 
   return (
     <>
       {
         animalsToPlayersMap.length === 0 ?
-        <h1>{'Winner: ' + elimPlayer.animal + ' ' +  elimPlayer.name}</h1> :
-        <h1>{elimPlayer.animal + ' ' + elimPlayer.name}</h1>
+          <h1>{'Winner: ' + elimPlayer.animal + ' ' + elimPlayer.name}</h1>
+          :
+          <h1>{elimPlayer.animal + ' ' + elimPlayer.name}</h1>
       }
 
-      <button onClick={() => roll()}>Roll Dice</button>
+      {showStartButton ?
+        <button
+          disabled={!showStartButton}
+          onClick={() => { setShowStartButton(false); eliminatePlayers(10); }}>
+          Start Lotto
+        </button>
+        :
+        <></>}
+
+      {(showSingleEliminationButton && animalsToPlayersMap.length > 0) ?
+        <button
+          onClick={() => { eliminate() }}>
+          Eliminate One Person
+        </button>
+        :
+        <></>
+      }
     </>
   );
 };
