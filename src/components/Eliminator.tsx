@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { DiceValue } from '../types';
+import { GetAnimalCard } from './AnimalCard';
 
 export interface EliminatorProps {
   animalMap: DiceValue[];
@@ -45,12 +46,12 @@ export function Eliminator(props: EliminatorProps) {
   }
 
   return (
-    <>
+    <div style={{ textAlign: 'center'}}>
       {
         animalsToPlayersMap.length === 0 ?
-          <h1>{'Winner: ' + elimPlayer.animal + ' ' + elimPlayer.name}</h1>
+          GetAnimalCard(elimPlayer.animal, 'Winner: ' + elimPlayer.name, true)
           :
-          <h1>{elimPlayer.animal + ' ' + elimPlayer.name}</h1>
+          GetAnimalCard(elimPlayer.animal, elimPlayer.name, false)
       }
 
       {showStartButton ?
@@ -70,6 +71,6 @@ export function Eliminator(props: EliminatorProps) {
         :
         <></>
       }
-    </>
+    </div>
   );
 };

@@ -164,7 +164,6 @@ export const App = () => {
             </Card>
           ))}
         </Row>
-
       }
     </>
   );
