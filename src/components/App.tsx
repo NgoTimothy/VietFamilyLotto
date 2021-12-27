@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 // import { AnimalCard } from './AnimalCard';
 // import { Counter } from './Counter';
-import { Dice } from './Dice';
 // import { Roller } from './Roller';
 import {
   Card,
@@ -94,7 +93,6 @@ export const ButtonClicked = (val: string) => {
   if (element) {
     element.value = '';
   }
-  console.log(animalMap);
 };
 
 export interface CounterState {

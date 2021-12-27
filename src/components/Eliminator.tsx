@@ -37,10 +37,10 @@ export function Eliminator(props: EliminatorProps) {
   const eliminatePlayers = (numberPlayers: number) => {
     for (var i = 0; i < numberPlayers; i++) {
       if (i === numberPlayers - 1) {
-        setTimeout(() => {eliminate(); setShowSingleEliminationButton(true);}, 1000 * i);
+        setTimeout(() => {eliminate(); setShowSingleEliminationButton(true);}, 7000 * i);
       }
       else {
-        setTimeout(() => eliminate(), 1000 * i);
+        setTimeout(() => eliminate(), 7000 * i);
       }
     }
   }
